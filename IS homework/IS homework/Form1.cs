@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using etf.cfactor.zd130033d.Klase;
 
-namespace IS_homework
+namespace etf.cfactor.zd130033d
 {
     public partial class formMain : Form
     {
@@ -44,7 +45,47 @@ namespace IS_homework
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
-          gbMode.
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btAddRule_Click(object sender, EventArgs e)
+        {
+            // Get rule from textbox.
+            //
+            String rule = tbRule.Text;
+            String[] paramsVal;
+            try {
+                Parser.Check(rule, out paramsVal);
+            }
+            catch (Error er)
+            {
+                MessageBox.Show(er.ToString());
+                return;
+            }
+
+            listBoxRules.Items.Add(rule);
+            
+
+            
         }
     }
 }

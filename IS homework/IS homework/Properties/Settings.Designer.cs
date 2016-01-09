@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IS_homework.Properties
+namespace etf.cfactor.zd130033d.Properties
 {
 
 
