@@ -37,21 +37,29 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox = new System.Windows.Forms.TextBox();
+            this.tbObserve = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.listBoxWatch = new System.Windows.Forms.ListBox();
+            this.listBoxObserve = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBoxConclusion = new System.Windows.Forms.TextBox();
+            this.tbConclusion = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.listBoxConclusion = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tbMB = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.tbMD = new System.Windows.Forms.TextBox();
             this.btAddRule = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.gbMode.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -59,10 +67,6 @@
             // listBoxRules
             // 
             this.listBoxRules.FormattingEnabled = true;
-            this.listBoxRules.Items.AddRange(new object[] {
-            "Тест",
-            "афдсфдса",
-            "асдфсфадасфд"});
             this.listBoxRules.Location = new System.Drawing.Point(561, 24);
             this.listBoxRules.Name = "listBoxRules";
             this.listBoxRules.Size = new System.Drawing.Size(392, 95);
@@ -154,13 +158,13 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "Додата правила";
             // 
-            // textBox
+            // tbObserve
             // 
-            this.textBox.Location = new System.Drawing.Point(27, 175);
-            this.textBox.Multiline = true;
-            this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(124, 56);
-            this.textBox.TabIndex = 9;
+            this.tbObserve.Location = new System.Drawing.Point(27, 175);
+            this.tbObserve.Multiline = true;
+            this.tbObserve.Name = "tbObserve";
+            this.tbObserve.Size = new System.Drawing.Size(124, 56);
+            this.tbObserve.TabIndex = 9;
             // 
             // label3
             // 
@@ -172,17 +176,15 @@
             this.label3.Text = "Додавање опажања";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // listBoxWatch
+            // listBoxObserve
             // 
-            this.listBoxWatch.FormattingEnabled = true;
-            this.listBoxWatch.Items.AddRange(new object[] {
-            "Тест",
-            "афдсфдса",
-            "асдфсфадасфд"});
-            this.listBoxWatch.Location = new System.Drawing.Point(561, 175);
-            this.listBoxWatch.Name = "listBoxWatch";
-            this.listBoxWatch.Size = new System.Drawing.Size(392, 95);
-            this.listBoxWatch.TabIndex = 12;
+            this.listBoxObserve.FormattingEnabled = true;
+            this.listBoxObserve.Location = new System.Drawing.Point(561, 175);
+            this.listBoxObserve.Name = "listBoxObserve";
+            this.listBoxObserve.Size = new System.Drawing.Size(392, 95);
+            this.listBoxObserve.TabIndex = 12;
+            this.listBoxObserve.SelectedIndexChanged += new System.EventHandler(this.listBoxObserve_SelectedIndexChanged);
+            this.listBoxObserve.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxObserve_MouseDoubleClick);
             // 
             // label4
             // 
@@ -196,12 +198,13 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(128, 250);
+            this.button2.Location = new System.Drawing.Point(27, 250);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(124, 33);
+            this.button2.Size = new System.Drawing.Size(124, 35);
             this.button2.TabIndex = 14;
             this.button2.Text = "Додај опажање";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label5
             // 
@@ -212,13 +215,13 @@
             this.label5.TabIndex = 15;
             this.label5.Text = "Додавање закључака";
             // 
-            // textBoxConclusion
+            // tbConclusion
             // 
-            this.textBoxConclusion.Location = new System.Drawing.Point(27, 317);
-            this.textBoxConclusion.Multiline = true;
-            this.textBoxConclusion.Name = "textBoxConclusion";
-            this.textBoxConclusion.Size = new System.Drawing.Size(462, 56);
-            this.textBoxConclusion.TabIndex = 16;
+            this.tbConclusion.Location = new System.Drawing.Point(27, 317);
+            this.tbConclusion.Multiline = true;
+            this.tbConclusion.Name = "tbConclusion";
+            this.tbConclusion.Size = new System.Drawing.Size(462, 56);
+            this.tbConclusion.TabIndex = 16;
             // 
             // button3
             // 
@@ -226,20 +229,18 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(124, 33);
             this.button3.TabIndex = 17;
-            this.button3.Text = "Додај опажање";
+            this.button3.Text = "Додај закљуачк";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // listBoxConclusion
             // 
             this.listBoxConclusion.FormattingEnabled = true;
-            this.listBoxConclusion.Items.AddRange(new object[] {
-            "Тест",
-            "афдсфдса",
-            "асдфсфадасфд"});
             this.listBoxConclusion.Location = new System.Drawing.Point(561, 317);
             this.listBoxConclusion.Name = "listBoxConclusion";
             this.listBoxConclusion.Size = new System.Drawing.Size(392, 95);
             this.listBoxConclusion.TabIndex = 18;
+            this.listBoxConclusion.SelectedIndexChanged += new System.EventHandler(this.listBoxConclusion_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -250,17 +251,17 @@
             this.label6.TabIndex = 19;
             this.label6.Text = "Додати закључци";
             // 
-            // textBox3
+            // tbMB
             // 
-            this.textBox3.Location = new System.Drawing.Point(206, 175);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(109, 20);
-            this.textBox3.TabIndex = 20;
+            this.tbMB.Location = new System.Drawing.Point(195, 175);
+            this.tbMB.Name = "tbMB";
+            this.tbMB.Size = new System.Drawing.Size(109, 20);
+            this.tbMB.TabIndex = 20;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(203, 159);
+            this.label7.Location = new System.Drawing.Point(212, 159);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(88, 13);
             this.label7.TabIndex = 21;
@@ -269,18 +270,18 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(203, 198);
+            this.label8.Location = new System.Drawing.Point(199, 198);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(101, 13);
             this.label8.TabIndex = 22;
             this.label8.Text = "Measure of disbelief";
             // 
-            // textBox4
+            // tbMD
             // 
-            this.textBox4.Location = new System.Drawing.Point(206, 214);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(109, 20);
-            this.textBox4.TabIndex = 23;
+            this.tbMD.Location = new System.Drawing.Point(195, 214);
+            this.tbMD.Name = "tbMD";
+            this.tbMD.Size = new System.Drawing.Size(109, 20);
+            this.tbMD.TabIndex = 23;
             // 
             // btAddRule
             // 
@@ -292,26 +293,110 @@
             this.btAddRule.UseVisualStyleBackColor = true;
             this.btAddRule.Click += new System.EventHandler(this.btAddRule_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(191, 105);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(124, 33);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "Обриши правило";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(191, 250);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(124, 35);
+            this.button4.TabIndex = 27;
+            this.button4.Text = "Обриши опажање";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(355, 105);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(124, 33);
+            this.button5.TabIndex = 28;
+            this.button5.Text = "Промени правило";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(561, 448);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(392, 95);
+            this.listBox1.TabIndex = 29;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(618, 429);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(110, 13);
+            this.label9.TabIndex = 30;
+            this.label9.Text = "Резултат алгоритма";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(355, 252);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(124, 33);
+            this.button6.TabIndex = 31;
+            this.button6.Text = "Промени опажање";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(191, 379);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(124, 35);
+            this.button7.TabIndex = 32;
+            this.button7.Text = "Обриши закључак";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(30, 536);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(121, 33);
+            this.button8.TabIndex = 33;
+            this.button8.Text = "Следећи корак";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1278, 581);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btAddRule);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.tbMD);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.tbMB);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.listBoxConclusion);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.textBoxConclusion);
+            this.Controls.Add(this.tbConclusion);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.listBoxWatch);
+            this.Controls.Add(this.listBoxObserve);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox);
+            this.Controls.Add(this.tbObserve);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
@@ -341,21 +426,29 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox;
+        private System.Windows.Forms.TextBox tbObserve;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListBox listBoxWatch;
+        private System.Windows.Forms.ListBox listBoxObserve;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBoxConclusion;
+        private System.Windows.Forms.TextBox tbConclusion;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ListBox listBoxConclusion;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbMB;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox tbMD;
         private System.Windows.Forms.Button btAddRule;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
     }
 }
 

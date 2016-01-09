@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IS_homework
+namespace etf.cfactor.zd130033d.Klase
 {
     class Class1
     {

@@ -10,8 +10,15 @@ namespace etf.cfactor.zd130033d.Klase
 {
     public class Error : Exception
     {
+        private String message;
         public Error(string message) 
         {
+            this.message = message;
+        }
+    
+        public override String ToString()
+        {
+            return message;
         }
     }
 
@@ -19,7 +26,13 @@ namespace etf.cfactor.zd130033d.Klase
 
     {
 
+        public static bool IsWord(String s)
+        {
+            return Regex.IsMatch(s, @"^[a-zA-Z1-9]+$");
+        }
 
+        // Because minimum and maximum are associative functions it isn't neccecary postfix to be in "right" order.
+        //
         private static void InfixToPostfix(String[] rule, int begin, int end, out ArrayList postfix)
         {
             Stack s = new Stack();
@@ -44,7 +57,7 @@ namespace etf.cfactor.zd130033d.Klase
                             {
                                 rank--;
                                 if (rank < 1)
-                                    throw new Error("Недовољан број речи(код И и ИЛИ"); 
+                                    throw new Error("Недовољан број речи(код И и ИЛИ)  или превише речи"); 
                             }
                             
                             postfix.Add(top);
@@ -53,6 +66,8 @@ namespace etf.cfactor.zd130033d.Klase
                         }
                         if (!top.Equals("("))
                             throw new Error("Нема леве заграде");
+                        else
+                            s.Pop();
 
                         break;
                     case "I":
@@ -62,11 +77,14 @@ namespace etf.cfactor.zd130033d.Klase
                         s.Push("ILI");
                         break;
                     case "-":
+                        if (addMinus)
+                            throw new Error("Неисправно стављена негација");
+
                         addMinus = true;
                         break;
                     default:
-                        if (!Regex.IsMatch(rule[idx], @"^[a-zA-Z]+$"))
-                            throw new Error("Неисправна реч, исправна мора да има само слова");
+                        if (!IsWord(rule[idx]))
+                            throw new Error("Неисправна реч, исправна мора да има само слова и бројеве");
 
                         postfix.Add(rule[idx]);
                         if (addMinus) {
@@ -89,7 +107,7 @@ namespace etf.cfactor.zd130033d.Klase
                 rank--;
             }
             if (rank != 1)
-                throw new Error("Недовољан број речи(код И и ИЛИ");
+                throw new Error("Недовољан број речи(код И и ИЛИ) или превише речи");
         }
 
         // PARAMETERS:
@@ -98,14 +116,20 @@ namespace etf.cfactor.zd130033d.Klase
         //
         // RETURN: in case of illegal rule, returns false, else true.
         // 
-        public static void Check(String rule, out String[] arrParameters) 
+        public static void Check(String rule, out String[] arrParameters, out ArrayList postfix) 
         {
             arrParameters = rule.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+            int len = arrParameters.Length;
+
+            if (len < 7)
+                throw new Error("Недовољан број параметара у правилу");
 
             if (!arrParameters[0].Equals("AKO"))
                 throw new Error("Нема AKO");
 
-            int len = arrParameters.Length;
+            if (!IsWord(arrParameters[len - 1]))
+                throw new Error("Неисправна реч, исправна мора да има само слова и бројеве");
+
             if (!arrParameters[len - 2].Equals(")"))
                 throw new Error("Нема десне заграде");
 
@@ -118,14 +142,33 @@ namespace etf.cfactor.zd130033d.Klase
             double dFactor;
             if (!Double.TryParse(arrParameters[len - 3], out dFactor))
                 throw new Error("Фактор није број");
-
+            if (dFactor > 1 || dFactor < 0)
+                throw new Error("Вероватноћа закључка није добра");
             int iBegin = 1, iEnd = len - 5;
 
-            ArrayList postfix;
             InfixToPostfix(arrParameters, iBegin, iEnd, out postfix);
+            Stack s = new Stack();
+            foreach (String element in postfix)
+            {
+                if (element.Equals("I") || element.Equals("ILI"))
+                    s.Pop();
+                else if (element.Equals("-")) ;
+                else s.Push(element);
+            }
+            if (s.Count > 1)
+                throw new Error("Превише претпоставки");
 
-         }
+        }
 
+        public static void GetObservations(ArrayList postfix, out ArrayList observe)
+        {
+            observe = new ArrayList();
+            foreach (var elem in postfix) 
+                if (!elem.Equals("I") && !elem.Equals("ILI") && !elem.Equals("-"))
+                {
+                    observe.Add(elem);
+                }
+        }
 
 
     }
