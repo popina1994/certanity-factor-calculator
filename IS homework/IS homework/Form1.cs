@@ -259,8 +259,8 @@ namespace etf.cfactor.zd130033d
                 tbObserve.Text = changedS;
 
                 Opazanje o = Opazanje.observe[changedS];
-                tbMB.Text = o.mBelief.ToString();
-                tbMD.Text = o.mDisbelief.ToString();
+                tbMB.Text = o.MeasureOfBelief.ToString();
+                tbMD.Text = o.MeasureOfDisbelief.ToString();
             }
             
         }
@@ -328,6 +328,26 @@ namespace etf.cfactor.zd130033d
             {
                 listBoxConclusion.Items.RemoveAt(index);
                 Zakljucak.conclusion.Remove(conclusion);
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            int cnt = 1;
+            // Sve se resetuje.
+            //
+            lbResult.Items.Clear();
+            try {
+                foreach (KeyValuePair<String, Zakljucak> entry in Zakljucak.conclusion)
+                {
+                    List<String> list = Algoritam.CertanityFactor(entry.Value);
+                    foreach (String s in list)
+                        lbResult.Items.Add("Korak" + cnt + s + "\n");
+                }
+            }
+            catch (Error er)
+            {
+                MessageBox.Show(er.ToString());
             }
         }
     }

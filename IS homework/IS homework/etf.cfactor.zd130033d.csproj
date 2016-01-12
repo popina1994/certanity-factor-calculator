@@ -53,6 +53,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Klase\Algoritam.cs" />
     <Compile Include="Klase\Opazanje.cs" />
     <Compile Include="Klase\Parser.cs" />
     <Compile Include="Klase\Pravilo.cs" />

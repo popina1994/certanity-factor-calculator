@@ -11,7 +11,7 @@ namespace etf.cfactor.zd130033d.Klase
     public class Error : Exception
     {
         private String message;
-        public Error(string message) 
+        public Error(String message) 
         {
             this.message = message;
         }
@@ -25,17 +25,53 @@ namespace etf.cfactor.zd130033d.Klase
     public class Parser
 
     {
+        private static readonly String[] keyWord = new String[7] { "AKO", "ONDA", "(", ")", "I", "ILI", "-"};
 
         public static bool IsWord(String s)
         {
             return Regex.IsMatch(s, @"^[a-zA-Z1-9]+$");
         }
 
+        public static bool IsKeyWord(String s)
+        {
+            foreach (String elem in keyWord)
+            {
+                if (s.Equals(elem))
+                    return true;
+            }
+            return false;
+        }
+
+        private const int MIN_LEN = 7;
+
+        public static double ExtractProbability(String[] ruleParams) 
+        {
+            int len = ruleParams.Length;
+            if (ruleParams.Length < MIN_LEN)
+            {
+                throw new Error("Недовољно параметара");
+            }
+            double cFactor;
+            if (!Double.TryParse(ruleParams[len - 3], out cFactor))
+                throw new Error("Фактор није број");
+            return cFactor;
+        }
+
+        public static String ExtractConclusion(String[] ruleParams)
+        {
+            int len = ruleParams.Length;
+            if (ruleParams.Length < MIN_LEN)
+            {
+                throw new Error("Недовољно параметара");
+            }
+            return ruleParams[len - 1];
+        }
+
         // Because minimum and maximum are associative functions it isn't neccecary postfix to be in "right" order.
         //
         private static void InfixToPostfix(String[] rule, int begin, int end, out ArrayList postfix)
         {
-            Stack s = new Stack();
+            Stack<String> s = new Stack<String>();
             postfix = new ArrayList();
             int rank = 0;
             // Denotes if negation is last expression
@@ -157,7 +193,22 @@ namespace etf.cfactor.zd130033d.Klase
             }
             if (s.Count > 1)
                 throw new Error("Превише претпоставки");
-
+            /*
+            int cnt = 0;
+            for (int idx = 0; idx < arrParameters.Length - 4; idx ++)
+            {
+                // Ako nije kljucna rec, jer idemo sigurno do ONDA.
+                //
+                if (!IsKeyWord(arrParameters[idx]))
+                {
+                    arrParameters[cnt++] = arrParameters[idx];
+                } 
+            }
+            // Dodaj zakljucak na kraj.
+            //
+            arrParameters[cnt++] = arrParameters[arrParameters.Length - 1];
+            Array.Resize(ref arrParameters, cnt);
+            */
         }
 
         public static void GetObservations(ArrayList postfix, out ArrayList observe)
