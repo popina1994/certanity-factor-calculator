@@ -8,6 +8,9 @@ using System.Text.RegularExpressions;
 
 namespace etf.cfactor.zd130033d.Klase
 {
+    /// <summary>
+    /// Служи за евиденцију грешака.
+    /// </summary>
     public class Error : Exception
     {
         private String message;
@@ -21,17 +24,33 @@ namespace etf.cfactor.zd130033d.Klase
             return message;
         }
     }
-
+    
+    /// <summary>
+    /// Садржи методе за парсирање израаза и регекс неких израза.
+    /// </summary>
     public class Parser
 
     {
+        /// <summary>
+        ///  Кључне речи.
+        /// </summary>
         private static readonly String[] keyWord = new String[7] { "AKO", "ONDA", "(", ")", "I", "ILI", "-"};
 
+        /// <summary>
+        /// Проверева да ли је реч по формату - само бројеви и слова.
+        /// </summary>
+        /// <param name="s"> Реч која се проверава.</param>
+        /// <returns> true у случају да је реч по формату, иначе false.</returns>
         public static bool IsWord(String s)
         {
             return Regex.IsMatch(s, @"^[a-zA-Z1-9]+$");
         }
 
+        /// <summary>
+        /// Проверава да ли је реч кључна, тј. међу једним од "кључних".
+        /// </summary>
+        /// <param name="s"> Реч која се проверава. </param>
+        /// <returns> true у случају да је реч кључна, иначе false</returns>
         public static bool IsKeyWord(String s)
         {
             foreach (String elem in keyWord)
@@ -42,8 +61,16 @@ namespace etf.cfactor.zd130033d.Klase
             return false;
         }
 
+        /// <summary>
+        /// Минимална дужина правила.
+        /// </summary>
         private const int MIN_LEN = 7;
 
+        /// <summary>
+        /// Извлачи MB од правила.
+        /// </summary>
+        /// <param name="ruleParams"> Правило из кога се извлачи.</param>
+        /// <returns> MB од правила. </returns>
         public static double ExtractProbability(String[] ruleParams) 
         {
             int len = ruleParams.Length;
@@ -57,6 +84,11 @@ namespace etf.cfactor.zd130033d.Klase
             return cFactor;
         }
 
+        /// <summary>
+        /// Извлачи закључак из правила.
+        /// </summary>
+        /// <param name="ruleParams">Правило из кога се извлачи</param>
+        /// <returns>Закључак.</returns>
         public static String ExtractConclusion(String[] ruleParams)
         {
             int len = ruleParams.Length;
@@ -67,8 +99,13 @@ namespace etf.cfactor.zd130033d.Klase
             return ruleParams[len - 1];
         }
 
-        // Because minimum and maximum are associative functions it isn't neccecary postfix to be in "right" order.
-        //
+        /// <summary>
+        /// Из датог правила извлачи "леви" део и претвара у postfix.
+        /// </summary>
+        /// <param name="rule">Правило које се проверава </param>
+        /// <param name="begin"> Одакле се чита правило. </param>
+        /// <param name="end"> Докле се чита правило. </param>
+        /// <param name="postfix"> Постфикс који се добија. </param>
         private static void InfixToPostfix(String[] rule, int begin, int end, out ArrayList postfix)
         {
             Stack<String> s = new Stack<String>();
@@ -146,12 +183,16 @@ namespace etf.cfactor.zd130033d.Klase
                 throw new Error("Недовољан број речи(код И и ИЛИ) или превише речи");
         }
 
-        // PARAMETERS:
-        // rule - rule which is checked if is valid. 
-        // arrParameters - last 
-        //
-        // RETURN: in case of illegal rule, returns false, else true.
-        // 
+        
+
+
+        /// <summary>
+        /// Парсира израз, проверава да ли је исправан и у случају исправног низ "параметара" је прослеђен у arrParameters.
+        /// И postfix садржи postfix леве стране израза.
+        /// </summary>
+        /// <param name="rule"> Правило које се парсира.</param>
+        /// <param name="arrParameters"> Низ испарсираних параметара. </param>
+        /// <param name="postfix">Постфикс леве стране израза.</param>
         public static void Check(String rule, out String[] arrParameters, out ArrayList postfix) 
         {
             arrParameters = rule.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
@@ -210,18 +251,6 @@ namespace etf.cfactor.zd130033d.Klase
             Array.Resize(ref arrParameters, cnt);
             */
         }
-
-        public static void GetObservations(ArrayList postfix, out ArrayList observe)
-        {
-            observe = new ArrayList();
-            foreach (var elem in postfix) 
-                if (!elem.Equals("I") && !elem.Equals("ILI") && !elem.Equals("-"))
-                {
-                    observe.Add(elem);
-                }
-        }
-
-
     }
 }
 

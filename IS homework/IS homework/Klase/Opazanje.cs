@@ -7,11 +7,20 @@ using System.Threading.Tasks;
 namespace etf.cfactor.zd130033d.Klase
 {
    
-
+    /// <summary>
+    /// Класа за опажање
+    /// </summary>
     class Opazanje
     {
+        /// <summary>
+        /// Списак свих "регистрованих" опажања.
+        /// </summary>
         public static Dictionary<String, Opazanje> observe = new Dictionary<String, Opazanje>();
+        /// <summary>
+        /// Опажање, ради лакшег дебаговања.
+        /// </summary>
         String observation;
+        
         double measureBelief;
         double measureDisbelief;
 

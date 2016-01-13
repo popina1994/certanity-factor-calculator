@@ -12,6 +12,9 @@ using etf.cfactor.zd130033d.Klase;
 
 namespace etf.cfactor.zd130033d
 {
+    /// <summary>
+    /// Садржи GUI методе које се користе.
+    /// </summary>
     public partial class formMain : Form
     {
         
@@ -332,23 +335,80 @@ namespace etf.cfactor.zd130033d
         }
 
         private void button9_Click(object sender, EventArgs e)
-        {
-            int cnt = 1;
+        { 
             // Sve se resetuje.
             //
+            if (Algoritam.stepMode == true)
+            {
+                MessageBox.Show("Погрешан мод, морате други да изаберете");
+                return;
+            }
+            Algoritam.stepByStep = new List<String>();
             lbResult.Items.Clear();
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             try {
                 foreach (KeyValuePair<String, Zakljucak> entry in Zakljucak.conclusion)
                 {
-                    List<String> list = Algoritam.CertanityFactor(entry.Value);
-                    foreach (String s in list)
-                        lbResult.Items.Add("Korak" + cnt + s + "\n");
+                    Algoritam.CertanityFactor(entry.Value);
                 }
+                foreach (String s in Algoritam.stepByStep)
+                    lbResult.Items.Add(s);
             }
             catch (Error er)
             {
                 MessageBox.Show(er.ToString());
+                return;
             }
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            lbResult.Items.Add("Potroseno vreme je " + System.Convert.ToString(elapsedMs));
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (Algoritam.stepMode == false)
+            {
+                MessageBox.Show("Погрешан мод, морате други да изаберете");
+                return;
+            }
+            if (Algoritam.curStep == 0)
+            {
+                Algoritam.stepByStep = new List<String>();
+                lbResult.Items.Clear();
+                try
+                {
+                    foreach (KeyValuePair<String, Zakljucak> entry in Zakljucak.conclusion)
+                    {
+                        Algoritam.CertanityFactor(entry.Value);
+                    }
+                }
+                catch (Error er)
+                {
+                    MessageBox.Show(er.ToString());
+                    return;
+                }
+            }
+            if (Algoritam.curStep == Algoritam.stepByStep.Count)
+            {
+                
+                MessageBox.Show("Нема више корака");
+                return;
+            }
+
+            lbResult.Items.Add(Algoritam.stepByStep[Algoritam.curStep++] + "\n");
+        }
+
+        private void rbStepByStep_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbStepByStep.Checked)
+                Algoritam.stepMode = true;
+            Algoritam.curStep = 0;
+        }
+
+        private void rbAlgorithm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbAlgorithm.Checked)
+                Algoritam.stepMode = false;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace etf.cfactor.zd130033d
 {
+   
     partial class formMain
     {
         /// <summary>
@@ -105,6 +106,7 @@
             this.rbAlgorithm.TabStop = true;
             this.rbAlgorithm.Text = "Алгоритам";
             this.rbAlgorithm.UseVisualStyleBackColor = true;
+            this.rbAlgorithm.CheckedChanged += new System.EventHandler(this.rbAlgorithm_CheckedChanged);
             // 
             // rbStepByStep
             // 
@@ -115,6 +117,7 @@
             this.rbStepByStep.TabIndex = 0;
             this.rbStepByStep.Text = "Корак по корак";
             this.rbStepByStep.UseVisualStyleBackColor = true;
+            this.rbStepByStep.CheckedChanged += new System.EventHandler(this.rbStepByStep_CheckedChanged);
             // 
             // radioButton1
             // 
@@ -369,6 +372,7 @@
             this.button8.TabIndex = 33;
             this.button8.Text = "Следећи корак";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 

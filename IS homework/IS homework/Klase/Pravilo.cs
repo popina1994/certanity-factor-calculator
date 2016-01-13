@@ -7,17 +7,36 @@ using System.Collections;
 
 namespace etf.cfactor.zd130033d.Klase
 {
+    /// <summary>
+    /// Класа за правила.
+    /// </summary>
     class Pravilo
     {
-        // Index of ListBox.
-        //         
+        /// <summary>
+        /// Списак свих "регистрованих" правила.
+        /// </summary>
         public static Dictionary<String, Pravilo> rules = new Dictionary<String, Pravilo>();
+
+        /// <summary>
+        /// Постфикс датог израза.
+        /// </summary>
         ArrayList postfix;
+
+        /// <summary>
+        /// Листа параметара.
+        /// </summary>
         String[] paramList;
+
+        /// <summary>
+        /// Правило, ради дебаговања лакшег.
+        /// </summary>
         String rule;
+
         double measureOfBelief;
         double measureOfDisBelief;
-        public int refCount;
+
+
+
         public double MeasureOfBelief
         {
             get
@@ -39,18 +58,6 @@ namespace etf.cfactor.zd130033d.Klase
             set
             {
                 measureOfDisBelief = value;
-            }
-        }
-
-        public int RefCount
-        {
-            get
-            {
-                return refCount;
-            }
-            set
-            {
-                refCount = value;
             }
         }
 
