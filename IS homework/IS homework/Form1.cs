@@ -394,8 +394,8 @@ namespace etf.cfactor.zd130033d
                 MessageBox.Show("Нема више корака");
                 return;
             }
-
-            lbResult.Items.Add(Algoritam.stepByStep[Algoritam.curStep++] + "\n");
+            int tmp = Algoritam.curStep + 1;
+            lbResult.Items.Add("Korak: " + tmp + " " + Algoritam.stepByStep[Algoritam.curStep++] + "\n");
         }
 
         private void rbStepByStep_CheckedChanged(object sender, EventArgs e)
